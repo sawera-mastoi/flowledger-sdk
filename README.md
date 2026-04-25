@@ -1,16 +1,16 @@
-# 🔧 @earnwithalee/stacks-echo-kit
+# 🔧 stacks-echo-kit
 
 A lightweight, zero-dependency utility toolkit for the **Stacks blockchain ecosystem**. Built for dashboard developers, DeFi tools, and Stacks dApp builders.
 
-[![npm version](https://img.shields.io/npm/v/@earnwithalee/stacks-echo-kit.svg)](https://www.npmjs.com/package/@earnwithalee/stacks-echo-kit)
-[![license](https://img.shields.io/npm/l/@earnwithalee/stacks-echo-kit.svg)](https://github.com/sawera-mastoi/stacks-tue/blob/main/LICENSE)
+[![npm version](https://img.shields.io/npm/v/stacks-echo-kit.svg)](https://www.npmjs.com/package/stacks-echo-kit)
+[![license](https://img.shields.io/npm/l/stacks-echo-kit.svg)](https://github.com/sawera-mastoi/flowledger-sdk/blob/main/LICENSE)
 
 ---
 
 ## 📦 Installation
 
 ```bash
-npm install @earnwithalee/stacks-echo-kit
+npm install stacks-echo-kit
 ```
 
 ---
@@ -32,7 +32,7 @@ npm install @earnwithalee/stacks-echo-kit
 ## 🚀 Quick Start
 
 ```javascript
-const kit = require("@earnwithalee/stacks-echo-kit");
+const kit = require("stacks-echo-kit");
 
 // Convert microSTX to STX
 kit.microToStx(2500000);  // → 2.5
