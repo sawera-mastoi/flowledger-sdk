@@ -1,130 +1,135 @@
-# @earnwithalee/flowledger-sdk
+# 🔧 @earnwithalee/stacks-echo-kit
 
-[![npm version](https://img.shields.io/npm/v/@earnwithalee/flowledger-sdk.svg)](https://www.npmjs.com/package/@earnwithalee/flowledger-sdk)
-[![npm downloads](https://img.shields.io/npm/dm/@earnwithalee/flowledger-sdk.svg)](https://www.npmjs.com/package/@earnwithalee/flowledger-sdk)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+A lightweight, zero-dependency utility toolkit for the **Stacks blockchain ecosystem**. Built for dashboard developers, DeFi tools, and Stacks dApp builders.
 
-The official SDK for interacting with **FlowLedger** smart contracts on the [Stacks blockchain](https://www.stacks.co/) (Bitcoin L2).
+[![npm version](https://img.shields.io/npm/v/@earnwithalee/stacks-echo-kit.svg)](https://www.npmjs.com/package/@earnwithalee/stacks-echo-kit)
+[![license](https://img.shields.io/npm/l/@earnwithalee/stacks-echo-kit.svg)](https://github.com/sawera-mastoi/stacks-tue/blob/main/LICENSE)
 
-FlowLedger is a daily transaction tracker that allows users to log income and expenses, view real-time spending analytics, and store transaction records on-chain using Clarity smart contracts.
+---
 
-## Features
-
-- 🔐 **Wallet Integration** — Simplified connection to Stacks wallets (Leather/Hiro)
-- 📜 **Contract Wrapper** — Easy-to-use methods for the FlowLedger `transactions-v2` contract
-- ⚡ **Auto-Encoding** — Automatic Clarity value encoding for contract calls
-- 📊 **Read-Only API** — Quick access to transaction status and ledger history
-- 🛠️ **Utility Functions** — Address formatting, STX conversion, validation via `stacks-echo-kit`
-
-## Installation
+## 📦 Installation
 
 ```bash
-npm install @earnwithalee/flowledger-sdk stacks-echo-kit
+npm install @earnwithalee/stacks-echo-kit
 ```
 
-## Quick Start
+---
+
+## ✨ Features
+
+| Category | Functions |
+|----------|-----------|
+| **STX Amounts** | `microToStx`, `stxToMicro`, `formatStx`, `formatCompact` |
+| **Address** | `isValidAddress`, `getAddressNetwork`, `truncateAddress`, `getExplorerAddressUrl` |
+| **Transactions** | `isTxSuccess`, `isTxFailed`, `isTxPending`, `getExplorerTxUrl`, `formatTxAmount` |
+| **Price & Portfolio** | `calcUsdValue`, `calcPriceChange`, `calcPortfolioAllocation` |
+| **Network** | `getNetwork`, `buildApiUrl` |
+| **Block & Epoch** | `estimateBlockTime`, `calcEpochProgress` |
+| **Time** | `timeAgo` |
+
+---
+
+## 🚀 Quick Start
 
 ```javascript
-const { FlowLedgerSDK } = require('@earnwithalee/flowledger-sdk');
+const kit = require("@earnwithalee/stacks-echo-kit");
 
-const sdk = new FlowLedgerSDK({
-  network: 'mainnet' // or 'testnet'
-});
+// Convert microSTX to STX
+kit.microToStx(2500000);  // → 2.5
 
-// 1. Connect Wallet
-const address = await sdk.connect();
-console.log(`Connected: ${sdk.formatAddress(address)}`);
+// Format for display
+kit.formatStx(2.5);  // → "2.50 STX"
+kit.formatCompact(1200000000);  // → "1.2B"
 
-// 2. Add Transaction
-const response = await sdk.addTransaction({
-  amountSTX: 10,
-  memo: "Talent Protocol reward",
-  type: "income"
-});
-console.log('Transaction Broadcasted:', response.txId);
+// Validate addresses
+kit.isValidAddress("SP000000000000000000002Q6VF78");  // → true
+kit.truncateAddress("SP000000000000000000002Q6VF78");  // → "SP00...VF78"
 
-// 3. Get User Balance (via Hiro API)
-const balance = await sdk.getBalance(address);
-console.log(`Balance: ${sdk.formatSTX(balance)}`);
+// Price changes
+kit.calcPriceChange(2.0, 2.45);
+// → { percent: 22.5, display: "+22.50%", direction: "up" }
 
-// 4. Get Transaction Details
-const tx = await sdk.getTransaction(address, 1);
-console.log('Transaction:', tx);
+// Portfolio allocation
+kit.calcPortfolioAllocation([
+  { name: "STX", amount: 45 },
+  { name: "BTC", amount: 30 },
+  { name: "ALEX", amount: 25 },
+]);
+// → [{ name: "STX", amount: 45, percent: 45 }, ...]
+
+// Build API URLs
+kit.buildApiUrl("/extended/v1/tx", "mainnet");
+// → "https://stacks-node-api.mainnet.stacks.co/extended/v1/tx"
+
+// Estimate block time
+kit.estimateBlockTime(100000, 100100);
+// → { blocks: 100, minutes: 1000, display: "~16h 40m" }
 ```
 
-## API Reference
+---
 
-### `new FlowLedgerSDK(config)`
+## 📋 API Reference
 
-| Parameter | Type | Default | Description |
-|-----------|------|---------|-------------|
-| `config.network` | `string` | `'mainnet'` | `'mainnet'` or `'testnet'` |
-| `config.contractAddress` | `string` | `SP3AMZ74T...` | Stacks address of the deployed contract |
-| `config.contractName` | `string` | `'transactions-v2'` | Name of the Clarity contract |
+### STX Amounts
 
-### Core Methods
+| Function | Description |
+|----------|-------------|
+| `microToStx(microStx)` | Convert microSTX → STX |
+| `stxToMicro(stx)` | Convert STX → microSTX |
+| `formatStx(stx, decimals?)` | Format STX for display (e.g. `"1,234.50 STX"`) |
+| `formatCompact(num, decimals?)` | Compact number format (e.g. `"1.2B"`, `"142.5K"`) |
 
-#### `sdk.connect()`
-Prompts the user to connect their Stacks wallet (Leather/Hiro). Returns the connected STX address.
+### Address Utilities
 
-#### `sdk.addTransaction({ amountSTX, memo, type })`
-Calls the `add-transaction` public function on the smart contract.
-- `amountSTX` — Amount in STX (auto-converted to microSTX)
-- `memo` — Short memo string (max 50 chars)
-- `type` — `"income"` or `"expense"` (max 10 chars)
+| Function | Description |
+|----------|-------------|
+| `isValidAddress(address)` | Validate SP/ST address format |
+| `getAddressNetwork(address)` | Detect `"mainnet"` or `"testnet"` |
+| `truncateAddress(address, start?, end?)` | Truncate to `"SP00...VF78"` |
+| `getExplorerAddressUrl(address, network?)` | Build Hiro Explorer URL |
 
-#### `sdk.getTransaction(userAddress, txId)`
-Retrieves a specific transaction from the ledger via the Hiro API.
+### Transaction Helpers
 
-#### `sdk.getBalance(address)`
-Gets the STX balance of a given Stacks address.
+| Function | Description |
+|----------|-------------|
+| `isTxSuccess(status)` | Check if tx succeeded |
+| `isTxFailed(status)` | Check if tx was aborted |
+| `isTxPending(status)` | Check if tx is pending |
+| `getExplorerTxUrl(txId, network?)` | Build explorer link for a tx |
+| `formatTxAmount(amount, decimals?)` | Format with +/- prefix |
 
-### Utility Methods
+### Price & Portfolio
 
-#### `sdk.formatAddress(address)`
-Truncates a wallet address for UI display (e.g., `SP3AM...8QMH4`).
+| Function | Description |
+|----------|-------------|
+| `calcUsdValue(stxAmount, priceUsd)` | Calculate USD value |
+| `calcPriceChange(oldPrice, newPrice)` | Get % change + direction |
+| `calcPortfolioAllocation(holdings)` | Compute allocation percentages |
 
-#### `sdk.formatSTX(amount)`
-Formats a numeric STX amount for display.
+### Network & Block
 
-#### `sdk.isValidAddress(address)`
-Validates a Stacks address format.
+| Function | Description |
+|----------|-------------|
+| `getNetwork(name?)` | Get mainnet/testnet/devnet config |
+| `buildApiUrl(endpoint, network?)` | Build full Hiro API URL |
+| `estimateBlockTime(current, target)` | Estimate time to target block |
+| `calcEpochProgress(current, start, length)` | Calculate epoch % progress |
+| `timeAgo(timestamp)` | Relative time string |
 
-#### `sdk.getExplorerTxUrl(txId)`
-Returns the Stacks Explorer URL for a given transaction ID.
+---
 
-## Utility Module
+## 🧪 Testing
 
-Additional utility functions are available via the `utils.js` module:
-
-```javascript
-const { truncateAddress, formatMicroToStx, isValidAddress } = require('@earnwithalee/flowledger-sdk/utils');
-
-truncateAddress('SP3AMZ74TRAWC92ZB110E38SZB7F1T06EHZ38QMH4');
-// => "SP3AM...8QMH4"
-
-formatMicroToStx(10000000);
-// => "10.00 STX"
-
-isValidAddress('SP3AMZ74TRAWC92ZB110E38SZB7F1T06EHZ38QMH4');
-// => true
+```bash
+npm test
 ```
 
-## Related Projects
+---
 
-- [FlowLedger DApp](https://github.com/sawera-mastoi/FlowLedger) — The main FlowLedger application
-- [stacks-echo-kit](https://www.npmjs.com/package/stacks-echo-kit) — Lightweight Stacks utility toolkit
+## 📄 License
 
-## Contributing
+MIT © [earnwithalee](https://github.com/Earnwithalee7890)
 
-Contributions are welcome! Please open an issue or submit a pull request.
+---
 
-1. Fork the repo
-2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
-
-## License
-
-MIT © [earnwithalee](https://github.com/sawera-mastoi)
+*Part of the [Stacks Echo](https://github.com/sawera-mastoi/stacks-tue) ecosystem.*

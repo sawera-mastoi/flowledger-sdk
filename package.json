@@ -1,12 +1,33 @@
 {
-  "name": "@earnwithalee/flowledger-sdk",
-  "version": "1.0.2",
-  "description": "Official SDK for interacting with FlowLedger smart contracts on the Stacks blockchain.",
+  "name": "stacks-echo-kit",
+  "version": "1.0.1",
+  "description": "A lightweight utility toolkit for the Stacks blockchain ecosystem. Includes STX formatting, address validation, transaction helpers, price utilities, and network configuration tools.",
   "main": "index.js",
-  "browser": "index.js",
+  "types": "index.d.ts",
   "scripts": {
-    "test": "node -e \"const {FlowLedgerSDK} = require('./index.js'); console.log('SDK loaded successfully');\""
+    "test": "node test.js"
   },
+  "keywords": [
+    "stacks",
+    "stx",
+    "blockchain",
+    "bitcoin",
+    "clarity",
+    "web3",
+    "defi",
+    "wallet",
+    "hiro",
+    "leather",
+    "xverse",
+    "stacks-echo",
+    "talent-protocol",
+    "builder-rewards",
+    "ecosystem",
+    "dashboard",
+    "utility"
+  ],
+  "author": "earnwithalee <earnwithalee@gmail.com>",
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/sawera-mastoi/flowledger-sdk.git"
@@ -15,32 +36,10 @@
     "url": "https://github.com/sawera-mastoi/flowledger-sdk/issues"
   },
   "homepage": "https://github.com/sawera-mastoi/flowledger-sdk#readme",
-  "keywords": [
-    "stacks",
-    "clarity",
-    "blockchain",
-    "ledger",
-    "flowledger",
-    "web3",
-    "dapp",
-    "stx",
-    "bitcoin",
-    "sdk",
-    "smart-contracts",
-    "talent-protocol"
-  ],
-  "author": "earnwithalee <earnwithalee@gmail.com>",
-  "license": "MIT",
   "files": [
     "index.js",
-    "utils.js",
+    "index.d.ts",
     "README.md",
     "LICENSE"
-  ],
-  "dependencies": {
-    "@stacks/connect": "^7.3.0",
-    "@stacks/network": "^6.13.0",
-    "@stacks/transactions": "^6.13.0",
-    "stacks-echo-kit": "^1.0.0"
-  }
+  ]
 }
