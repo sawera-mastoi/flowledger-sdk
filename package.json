@@ -28,6 +28,10 @@
   ],
   "author": "earnwithalee <earnwithalee@gmail.com>",
   "license": "MIT",
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/sawera-mastoi/flowledger-sdk.git"
@@ -36,10 +40,17 @@
     "url": "https://github.com/sawera-mastoi/flowledger-sdk/issues"
   },
   "homepage": "https://github.com/sawera-mastoi/flowledger-sdk#readme",
+  "engines": {
+    "node": ">=18"
+  },
   "files": [
     "index.js",
     "index.d.ts",
     "README.md",
-    "LICENSE"
+    "LICENSE",
+    "constants.js",
+    "interceptor.js",
+    "network_utils.js",
+    "x402_utils.js"
   ]
 }
