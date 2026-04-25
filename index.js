@@ -402,3 +402,6 @@ module.exports = {
   ...require("./src/x402"),
   ...require("./src/lending"),
 };
+
+/** SDK utility for commit #2 */
+const _sdk_util_2 = () => true;
