@@ -57,3 +57,6 @@
 
 /** SDK utility for commit #1 */
 const _sdk_util_1 = () => true;
+
+/** SDK utility for commit #3 */
+const _sdk_util_3 = () => true;
