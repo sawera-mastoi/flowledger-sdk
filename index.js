@@ -55,6 +55,31 @@ const TX_STATUS = {
 };
 
 // ─────────────────────────────────────────────
+//  Lending & x402 Constants
+// ─────────────────────────────────────────────
+
+const LENDING_CONTRACTS = {
+  mainnet: {
+    vault: "SP120SBRBQJ00MCWS7TM5R8WJNTTKD5K0HFRC2CNE.lend402-vault",
+    sbtc: "SM3VDXK3WZZSA84XXFKAFAF15NNZX32CTSG82JFQ4.sbtc-token",
+    usdcx: "SP120SBRBQJ00MCWS7TM5R8WJNTTKD5K0HFRC2CNE.usdcx",
+    oracle: "SP1G48FZ4Y7JY8G2Z0N51QTCYGBQ6F4J43J77BQC0.dia-oracle",
+  },
+  testnet: {
+    vault: "ST1PQHQK6K7Y0ZYMY2E61HW3D8B8JV2QDN64STJHH.lend402-vault",
+    sbtc: "ST2PABAF9FTAJYNFZH93XENAJ8FVY99RRM4CB2WDX.sbtc-token",
+    usdcx: "ST1PQHQK6K7Y0ZYMY2E61HW3D8B8JV2QDN64STJHH.usdcx",
+    oracle: "ST2HKGJ8CY0YFNCH7A69GAMXKPGTAKDG0D0M0F4FZ.dia-oracle",
+  },
+};
+
+const X402_HEADERS = {
+  PAYMENT_REQUIRED: "payment-required",
+  PAYMENT_SIGNATURE: "payment-signature",
+  PAYMENT_RESPONSE: "payment-response",
+};
+
+// ─────────────────────────────────────────────
 //  STX Amount Utilities
 // ─────────────────────────────────────────────
 
@@ -353,6 +378,38 @@ function timeAgo(timestamp) {
 }
 
 // ─────────────────────────────────────────────
+//  Lending & x402 Helpers
+// ─────────────────────────────────────────────
+
+/**
+ * Encode a payment payload for the x402 payment-signature header.
+ * @param {object} payload - The payment payload.
+ * @returns {string} Base64 encoded string.
+ */
+function encodeX402Payload(payload) {
+  try {
+    const json = JSON.stringify(payload);
+    return Buffer.from(json).toString("base64");
+  } catch (e) {
+    return "";
+  }
+}
+
+/**
+ * Decode an x402 header value.
+ * @param {string} encoded - Base64 encoded header.
+ * @returns {object|null} Decoded object or null.
+ */
+function decodeX402Header(encoded) {
+  try {
+    const json = Buffer.from(encoded, "base64").toString("utf8");
+    return JSON.parse(json);
+  } catch (e) {
+    return null;
+  }
+}
+
+// ─────────────────────────────────────────────
 //  Exports
 // ─────────────────────────────────────────────
 
@@ -361,6 +418,8 @@ module.exports = {
   MICRO_STX,
   NETWORKS,
   TX_STATUS,
+  LENDING_CONTRACTS,
+  X402_HEADERS,
 
   // STX Amounts
   microToStx,
@@ -397,8 +456,7 @@ module.exports = {
   // Time
   timeAgo,
 
-  // JIT Lending (Added)
-  ...require("./interceptor"),
-  ...require("./network_utils"),
-  ...require("./x402_utils"),
+  // x402
+  encodeX402Payload,
+  decodeX402Header,
 };

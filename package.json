@@ -39,17 +39,7 @@
   "files": [
     "index.js",
     "index.d.ts",
-    "interceptor.js",
-    "x402_utils.js",
-    "network_utils.js",
-    "constants.js",
     "README.md",
     "LICENSE"
-  ],
-  "dependencies": {
-    "@stacks/network": "^6.17.0",
-    "@stacks/transactions": "^6.17.0",
-    "axios": "^1.7.9",
-    "x402-stacks": "^2.0.1"
-  }
+  ]
 }
