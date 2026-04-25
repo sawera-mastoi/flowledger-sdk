@@ -1,6 +1,6 @@
 {
   "name": "@earnwithalee/flowledger-sdk",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Official SDK for interacting with FlowLedger smart contracts on the Stacks blockchain.",
   "main": "index.js",
   "browser": "index.js",
