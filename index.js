@@ -396,4 +396,9 @@ module.exports = {
 
   // Time
   timeAgo,
+
+  // JIT Lending (Added)
+  ...require("./interceptor"),
+  ...require("./network_utils"),
+  ...require("./x402_utils"),
 };
