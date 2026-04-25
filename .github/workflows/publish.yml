@@ -3,6 +3,9 @@ name: Publish to GitHub Packages
 on:
   release:
     types: [created]
+  push:
+    tags:
+      - 'v*'
   workflow_dispatch:
 
 permissions:
@@ -17,22 +20,24 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-          registry-url: 'https://npm.pkg.github.com'
-          scope: '@sawera-mastoi'
+
+      - name: Configure npm for GitHub Packages
+        run: |
+          echo "@sawera-mastoi:registry=https://npm.pkg.github.com" >> .npmrc
+          echo "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}" >> .npmrc
 
       - run: npm install
-
-      # This is the step that makes the package show up in your GitHub sidebar!
-      - name: Publish to GitHub Packages
+      
+      - name: Publish Package
         run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      # Also create a Release Asset for visibility
       - name: Create Tarball
         run: npm pack
       - name: Upload Release Asset
         uses: softprops/action-gh-release@v1
+        if: github.event_name == 'release'
         with:
           files: "*.tgz"
         env:
