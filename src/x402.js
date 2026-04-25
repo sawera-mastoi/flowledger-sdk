@@ -12,7 +12,7 @@ const X402_HEADERS = {
 /**
  * Encodes a JSON payload to Base64 for x402 headers.
  */
-function encodePayload(payload) {
+function encodeX402Payload(payload) {
   try {
     const json = JSON.stringify(payload);
     return Buffer.from(json).toString("base64");
@@ -24,7 +24,7 @@ function encodePayload(payload) {
 /**
  * Decodes a Base64 x402 header back to JSON.
  */
-function decodeHeader(encoded) {
+function decodeX402Header(encoded) {
   try {
     const json = Buffer.from(encoded, "base64").toString("utf8");
     return JSON.parse(json);
@@ -35,6 +35,6 @@ function decodeHeader(encoded) {
 
 module.exports = {
   X402_HEADERS,
-  encodePayload,
-  decodeHeader,
+  encodeX402Payload,
+  decodeX402Header,
 };
