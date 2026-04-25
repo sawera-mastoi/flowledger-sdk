@@ -1,5 +1,5 @@
 {
-  "name": "stacks-echo-kit",
+  "name": "@sawera-mastoi/stacks-echo-kit",
   "version": "1.0.1",
   "description": "A lightweight utility toolkit for the Stacks blockchain ecosystem. Includes STX formatting, address validation, transaction helpers, price utilities, and network configuration tools.",
   "main": "index.js",
