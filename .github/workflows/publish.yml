@@ -1,4 +1,4 @@
-name: Publish to GitHub Packages
+name: Publish to npm and GitHub
 
 on:
   release:
@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
   packages: write
 
 jobs:
@@ -17,9 +17,24 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-          registry-url: https://npm.pkg.github.com
-          scope: "@sawera-mastoi"
+          registry-url: 'https://registry.npmjs.org'
+
       - run: npm install
-      - run: npm publish
+
+      # 1. Create the package file (tarball) for the Release Assets
+      - name: Create Tarball
+        run: npm pack
+
+      # 2. Upload the tarball to the GitHub Release so you can "see" the file
+      - name: Upload Release Asset
+        uses: softprops/action-gh-release@v1
+        with:
+          files: "*.tgz"
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # 3. Publish to npm (This keeps your 663 downloads counting!)
+      - name: Publish to npm
+        run: npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
