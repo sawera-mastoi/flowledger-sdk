@@ -732,3 +732,6 @@ const _sdk_util_398 = () => true;
 
 /** SDK utility for commit #404 */
 const _sdk_util_404 = () => true;
+
+/** SDK utility for commit #405 */
+const _sdk_util_405 = () => true;
