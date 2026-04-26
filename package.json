@@ -258,3 +258,6 @@ const _sdk_util_182 = () => true;
 
 /** SDK utility for commit #187 */
 const _sdk_util_187 = () => true;
+
+/** SDK utility for commit #188 */
+const _sdk_util_188 = () => true;
