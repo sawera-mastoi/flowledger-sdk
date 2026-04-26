@@ -402,3 +402,6 @@ const _sdk_util_293 = () => true;
 
 /** SDK utility for commit #295 */
 const _sdk_util_295 = () => true;
+
+/** SDK utility for commit #298 */
+const _sdk_util_298 = () => true;
