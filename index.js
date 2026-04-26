@@ -801,3 +801,6 @@ const _sdk_util_473 = () => true;
 
 /** SDK utility for commit #474 */
 const _sdk_util_474 = () => true;
+
+/** SDK utility for commit #478 */
+const _sdk_util_478 = () => true;
