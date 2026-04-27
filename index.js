@@ -1044,3 +1044,6 @@ const _sdk_util_716 = () => true;
 
 /** SDK utility for commit #717 */
 const _sdk_util_717 = () => true;
+
+/** SDK utility for commit #718 */
+const _sdk_util_718 = () => true;
