@@ -882,3 +882,6 @@ const _sdk_util_737 = () => true;
 
 /** SDK utility for commit #740 */
 const _sdk_util_740 = () => true;
+
+/** SDK utility for commit #742 */
+const _sdk_util_742 = () => true;
